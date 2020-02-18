@@ -13,6 +13,6 @@ library(janitor)
 x<- 
 read_excel("class_enrollment_summary_by_term2.18.20.xlsx", skip = 3) %>% clean_names() %>% mutate(course_id = parse_number(course_id))
 
-departments <- x %>% select(course_department, total) %>% group_by(course_department) %>% summarize(num_enroll = sum(total)) %>% arrange(desc(num_enroll)) %>% head(5)
+departments <- x %>% select(course_department, course_name, total) %>% group_by(course_department) %>% summarize(num_enroll = sum(total)) %>% arrange(desc(num_enroll)) %>% head(5)
 departments
 ```
