@@ -9,10 +9,20 @@ library(tidyverse)
 library(readxl)
 library(janitor)
 ```
-```{r}
-x<- 
+```{r spring2020, echo=FALSE}
+spring_2020<- 
 read_excel("class_enrollment_summary_by_term2.18.20.xlsx", skip = 3) %>% clean_names() %>% mutate(course_id = parse_number(course_id))
 
-departments <- x %>% select(course_department, course_name, total) %>% group_by(course_department) %>% summarize(num_enroll = sum(total)) %>% arrange(desc(num_enroll)) %>% head(5)
+departments <- spring_2020 %>% select(course_department, course_name, total) %>% group_by(course_department) %>% summarize(num_enroll = sum(total)) %>% arrange(desc(num_enroll)) %>% head(5)
 departments
 ```
+```{r spring2019, echo=FALSE}
+
+spring_2019<- 
+read_excel("class_enrollment_summary_by_term_3.22.19_0.xlsx", skip = 3) %>% 
+  clean_names() %>% 
+  mutate(course_id = parse_number(course_id))
+
+new_courses <- spring_2020 %>% anti_join(spring_2019,  )
+```
+
